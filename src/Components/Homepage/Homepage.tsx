@@ -9,7 +9,7 @@ export default function Homepage() {
             {
                 context ? (
                     <h1>Welcome back {context.username}</h1>
-                ) : <h1>Welcome to my website</h1>
+                ) : <h1>Welcome to my website!!!</h1>
             }
         </div>
     )
