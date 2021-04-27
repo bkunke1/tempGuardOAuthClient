@@ -3,18 +3,19 @@ import googleImage from '../../assets/googleImage.png';
 import githubImage from '../../assets/githubImage.png';
 import twitterImage from '../../assets/twitterImage.png';
 import styles from './LoginPage.module.css';
+import { setEnvironment } from '../../Context';
 
 export default function LoginPage() {
   const googleLogin = () => {
-    window.open('https://tempguardoauth.herokuapp.com/auth/google', '_self');
+    window.open(`${setEnvironment}/auth/google`, '_self');
   };
 
   const githubLogin = () => {
-    window.open('https://tempguardoauth.herokuapp.com/auth/github', '_self');
+    window.open(`${setEnvironment}/auth/github`, '_self');
   };
 
   const twitterLogin = () => {
-    window.location.href = 'https://tempguardoauth.herokuapp.com/auth/twitter'
+    window.location.href = `${setEnvironment}/auth/twitter`
   };
 
   return (

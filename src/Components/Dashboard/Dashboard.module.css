@@ -1,0 +1,22 @@
+.sensorsWrapper {
+    margin: 0 50px 0 50px;
+    border: solid black 1px;
+}
+
+.loginMessage {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+}
+
+
+.sensors {
+    display: flex;
+    justify-content: space-around;
+    
+    border: solid red 1px;
+}
+
+.sensor {
+    border: solid green 1px;
+}
