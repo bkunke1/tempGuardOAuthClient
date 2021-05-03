@@ -1,22 +1,25 @@
 .sensorsWrapper {
-    margin: 0 50px 0 50px;
+    margin: 0 1rem 0 1rem;
     border: solid black 1px;
 }
 
 .loginMessage {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 100px;
+    margin: 20px 50px 25px 0;
+    text-align: right;
 }
 
 
-.sensors {
-    display: flex;
-    justify-content: space-around;
-    
+.sensors {   
     border: solid red 1px;
+    width: 100%;
+    /* margin: auto; */
+    justify-content: center;
 }
 
 .sensor {
     border: solid green 1px;
+    min-width: 300px;
+    max-width: none;
+    margin-right: 10px;
+    margin-top: 10px;
 }

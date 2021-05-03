@@ -7,7 +7,7 @@ export const myContext = createContext({});
 //context test for localhost
 const devEnv = 'http://localhost:3000';
 const prodEnv = 'https://tempguardoauth.herokuapp.com';
-export const setEnvironment = devEnv;
+export const setEnvironment = prodEnv;
 
 export default function Context(props: any) {
 
