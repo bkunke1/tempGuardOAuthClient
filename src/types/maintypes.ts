@@ -12,6 +12,8 @@ export interface IUser {
     sensorNumber: string;
     sensorName: string;
     sensorCurrentTemp: string;
+    sensorStatus: string;
     sensorHighAlarm: string;
     sensorLowAlarm: string;
+    key: string;
   }

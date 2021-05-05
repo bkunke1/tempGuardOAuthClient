@@ -2,10 +2,6 @@ import React from 'react';
 import styles from './SensorThermometer.module.css';
 
 // Bootstrap Components
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Button from 'react-bootstrap/Button';
 
 export default function SensorThermometer() {
     return (
@@ -44,19 +40,19 @@ export default function SensorThermometer() {
                 height="4"
                 fill="yellow"
                 stroke="black"
-                stroke-width="2"
+                strokeWidth="2"
               ></rect>
               <polygon
                 points="20,26.75 30,32.75 20,38.75"
                 fill="yellow"
                 stroke="black"
-                stroke-width="2"
+                strokeWidth="2"
               ></polygon>
               <polygon
                 points="70,26.75 60,32.75 70,38.75"
                 fill="yellow"
                 stroke="black"
-                stroke-width="2"
+                strokeWidth="2"
               ></polygon>
             </svg>
             <svg>
