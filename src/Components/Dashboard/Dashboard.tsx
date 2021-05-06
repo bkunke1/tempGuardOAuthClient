@@ -5,12 +5,20 @@ import styles from './Dashboard.module.css';
 import Sensor from '../Sensor/Sensor';
 import { setEnvironment } from '../../Context';
 
+// Bootstrap Components
 import Container from '../../../node_modules/react-bootstrap/Container';
 import Row from '../../../node_modules/react-bootstrap/Row';
 import Col from '../../../node_modules/react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 export default function Dashboard() {
   const context = useContext(myContext) as IUser;
+
+  
+  const createSensor = () => {
+      console.log('create sensor clicked');
+    fetch(`${setEnvironment}/createSensor`).then(res => {console.log(res)}).catch(err => {console.log(err)});
+  };
 
   const sensorList = [
     {
@@ -77,6 +85,9 @@ export default function Dashboard() {
 
             <div>
               <Container>
+                  <Row className={styles.createSensorButton}>
+                  <Button onClick={createSensor}>Add Sensor +</Button>
+                  </Row>
                 <Row className={styles.sensors}>
                   {sensorList.map((sensorData) => (
                     <Col xs={6} md={4} lg={3} className={styles.sensor}>

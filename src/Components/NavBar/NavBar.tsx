@@ -75,17 +75,23 @@ export default function NavBar() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+          <Nav className="mr-auto mx-auto">
             <Nav.Link href="/">Dashboard</Nav.Link>
             <Nav.Link href="/history">History</Nav.Link>
             <Nav.Link href="/settings">Settings</Nav.Link>
             <Nav.Link href="/support">Support</Nav.Link>
-            {userObject ? (
+            {/* {userObject ? (
             <Nav.Link href="/" className={styles.navBarLoginBtn} onClick={logout}>Logout</Nav.Link>
           ) : (
             <Nav.Link href="/login" className={styles.navBarLoginBtn}>Login</Nav.Link>
-          )}
+          )} */}
           </Nav>
+          {userObject ? (
+            <Button href="/login" onClick={logout}>Logout</Button>
+          ) : (
+            <Button href="/login">Login</Button>
+          )}
+          
         </Navbar.Collapse>
         
       </Navbar>

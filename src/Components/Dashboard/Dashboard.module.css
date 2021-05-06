@@ -1,5 +1,5 @@
 .sensorsWrapper {
-    margin: 0 1rem 0 1rem;
+    /* margin: 0 1rem 0 1rem; */
     border: solid black 1px;
 }
 
@@ -12,14 +12,26 @@
 .sensors {   
     border: solid red 1px;
     width: 100%;
-    /* margin: auto; */
+    margin: 0px;
+    padding: 0px;
     justify-content: center;
 }
 
 .sensor {
-    border: solid green 1px;
-    min-width: 300px;
-    max-width: none;
-    margin-right: 10px;
+    border: solid black 3px;
+    min-width: 270px;
     margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    margin-right: 10px;
+}
+
+.createSensorButton {
+    justify-content: center;    
+}
+
+.container {
+    margin: none;
+    padding: none;
 }
