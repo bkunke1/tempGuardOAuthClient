@@ -2,22 +2,29 @@ import React, { useContext } from 'react';
 import { myContext } from '../../Context';
 import { IUser } from '../../types/maintypes';
 import styles from './Dashboard.module.css';
-import Sensor from '../Sensor/Sensor';
+import Sensor from '../../Components/Sensor/Sensor';
 import { setEnvironment } from '../../Context';
 
 // Bootstrap Components
-import Container from '../../../node_modules/react-bootstrap/Container';
-import Row from '../../../node_modules/react-bootstrap/Row';
-import Col from '../../../node_modules/react-bootstrap/Col';
+import Container from 'react-bootstrap/esm/Container';
+import Row from 'react-bootstrap/esm/Row';
+import Col from 'react-bootstrap/esm/Col';
 import Button from 'react-bootstrap/Button';
+import { Modal, ModalProps } from 'react-bootstrap';
+import { Omit, BsPrefixProps } from 'react-bootstrap/esm/helpers';
 
 export default function Dashboard() {
   const context = useContext(myContext) as IUser;
 
-  
   const createSensor = () => {
-      console.log('create sensor clicked');
-    fetch(`${setEnvironment}/createSensor`).then(res => {console.log(res)}).catch(err => {console.log(err)});
+    console.log('create sensor clicked');
+    fetch(`${setEnvironment}/createSensor`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const sensorList = [
@@ -73,6 +80,67 @@ export default function Dashboard() {
   //     console.log(data);
   //   });
 
+  const [modalShow, setModalShow] = React.useState(false);
+
+  function MyVerticallyCenteredModal(
+    props: JSX.IntrinsicAttributes &
+      Omit<
+        Pick<
+          React.DetailedHTMLProps<
+            React.HTMLAttributes<HTMLDivElement>,
+            HTMLDivElement
+          >,
+          'key' | keyof React.HTMLAttributes<HTMLDivElement>
+        > & {
+          ref?:
+            | ((instance: HTMLDivElement | null) => void)
+            | React.RefObject<HTMLDivElement>
+            | null
+            | undefined;
+        },
+        BsPrefixProps<'div'> & ModalProps
+      > &
+      BsPrefixProps<'div'> &
+      ModalProps & { children?: React.ReactNode }
+  ) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-addSensorModal"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-addSensorModal">
+            Add Sensor Form
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <form>
+                <div className="form-group">
+                  <label>Sensor Name</label>
+                  <input type="text" className="form-control" id="sensorName1" />
+                </div>
+                <div className="form-group row">
+                  <div className="col-xs-3 mx-auto">
+                    <label>High Alarm</label>
+                    <input type="text" className="form-control" id="highAlarm1" />
+                  </div>
+                  <div className="col-xs-3 mx-auto">
+                    <label>Low Alarm</label>
+                    <input type="text" className="form-control" id="lowAlarm1" />
+                  </div>
+                </div>
+              </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button className="btn-warning" onClick={props.onHide}>Cancel</Button>
+          <Button className="btn-success" onClick={createSensor}>Update</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
   return (
     <div className={styles.sensorsWrapper}>
       <div>
@@ -85,9 +153,21 @@ export default function Dashboard() {
 
             <div>
               <Container>
-                  <Row className={styles.createSensorButton}>
-                  <Button onClick={createSensor}>Add Sensor +</Button>
-                  </Row>
+                <Row className={styles.createSensorButton}>
+                  <>
+                    <Button
+                      variant="primary"
+                      onClick={() => setModalShow(true)}
+                    >
+                      Add Sensor +
+                    </Button>
+
+                    <MyVerticallyCenteredModal
+                      show={modalShow}
+                      onHide={() => setModalShow(false)}
+                    />
+                  </>
+                </Row>
                 <Row className={styles.sensors}>
                   {sensorList.map((sensorData) => (
                     <Col xs={6} md={4} lg={3} className={styles.sensor}>

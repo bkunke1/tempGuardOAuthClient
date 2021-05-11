@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { myContext } from './Context';
-import Dashboard from './Components/Dashboard/Dashboard';
-import LoginPage from './Components/LoginPage/LoginPage';
+import Dashboard from './Pages/DashboardPage/Dashboard';
+import LoginPage from './Pages/LoginPage/LoginPage';
 import NavBar from './Components/NavBar/NavBar';
 import './GlobalStyles.css';
-import LandingPage from './Components/LandingPage/LandingPage';
-import HistoryPage from './Components/History/HistoryPage';
+import LandingPage from './Pages/LandingPage/LandingPage';
+import HistoryPage from './Pages/HistoryPage/HistoryPage';
+import SettingsPage from './Pages/SettingsPage/SettingsPage';
+import SupportPage from './Pages/SupportPage/SupportPage';
 
 function App() {
   const userObject = useContext(myContext);
@@ -22,11 +24,11 @@ function App() {
         <Route path="/history">
           <HistoryPage />
         </Route>
-        <Route path="/history">
-          <HistoryPage />
+        <Route path="/settings">
+          <SettingsPage />
         </Route>
-        <Route path="/history">
-          <HistoryPage />
+        <Route path="/support">
+          <SupportPage />
         </Route>
       </Switch>
     </BrowserRouter>

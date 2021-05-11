@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styles from './NavBar.module.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
 import { myContext } from '../../Context';
 import { IUser } from '../../types/maintypes';
@@ -63,7 +63,7 @@ export default function NavBar() {
       {/*  */}
       {/* testing bootstrap nav */}
       <Navbar bg="light" expand="lg" className={styles.navBar}>
-        <Navbar.Brand href="/">
+        <Navbar.Brand as={NavLink} to="/" exact>
           {/* <img
             alt="logoPic"
             src="../../assets/googleImage.png"
@@ -76,10 +76,10 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto mx-auto">
-            <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-            <Nav.Link href="/history">History</Nav.Link>
-            <Nav.Link href="/settings">Settings</Nav.Link>
-            <Nav.Link href="/support">Support</Nav.Link>
+            <Nav.Link as={NavLink} to="/dashboard">Dashboard</Nav.Link>
+            <Nav.Link as={NavLink} to="/history">History</Nav.Link>
+            <Nav.Link as={NavLink} to="/settings">Settings</Nav.Link>
+            <Nav.Link as={NavLink} to="/support">Support</Nav.Link>
             {/* {userObject ? (
             <Nav.Link href="/" className={styles.navBarLoginBtn} onClick={logout}>Logout</Nav.Link>
           ) : (
@@ -87,9 +87,9 @@ export default function NavBar() {
           )} */}
           </Nav>
           {userObject ? (
-            <Button href="/login" onClick={logout}>Logout</Button>
+            <Link to="/"><Button onClick={logout}>Logout</Button></Link>
           ) : (
-            <Button href="/login">Login</Button>
+            <Link to="/login"><Button href="/login">Login</Button></Link>            
           )}
           
         </Navbar.Collapse>
