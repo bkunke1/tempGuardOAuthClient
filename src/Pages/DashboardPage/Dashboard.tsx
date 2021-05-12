@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { myContext } from '../../Context';
 import { IUser } from '../../types/maintypes';
 import styles from './Dashboard.module.css';
 import Sensor from '../../Components/Sensor/Sensor';
+import CreateSensorForm from '../../Components/Forms/CreateSensorForm/CreateSensorForm';
 import { setEnvironment } from '../../Context';
 
 // Bootstrap Components
@@ -15,16 +16,32 @@ import { Omit, BsPrefixProps } from 'react-bootstrap/esm/helpers';
 
 export default function Dashboard() {
   const context = useContext(myContext) as IUser;
+  const [enteredSensorName, setEnteredSensorName] = useState('');
 
-  const createSensor = () => {
-    console.log('create sensor clicked');
-    fetch(`${setEnvironment}/createSensor`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const sensorNameInputHandler = (event: any) => {
+    setEnteredSensorName(event.target.value);
+
+    if (enteredSensorName.trim() == '') {
+
+    }
+  };
+
+  const createSensorModalSubmissionHandler = (event: any) => {
+    console.log('create sensor submitted');
+    event.preventDefault();
+    console.log(enteredSensorName);
+
+    if (enteredSensorName.trim() == '') {
+
+    }
+
+    // fetch(`${setEnvironment}/createSensor`)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   const sensorList = [
@@ -116,10 +133,11 @@ export default function Dashboard() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <form>
+          <CreateSensorForm />
+        {/* <form>
                 <div className="form-group">
                   <label>Sensor Name</label>
-                  <input type="text" className="form-control" id="sensorName1" />
+                  <input type="text" className="form-control" id="sensorName1" onChange={sensorNameInputHandler} />
                 </div>
                 <div className="form-group row">
                   <div className="col-xs-3 mx-auto">
@@ -131,11 +149,11 @@ export default function Dashboard() {
                     <input type="text" className="form-control" id="lowAlarm1" />
                   </div>
                 </div>
-              </form>
+              </form> */}
         </Modal.Body>
         <Modal.Footer>
           <Button className="btn-warning" onClick={props.onHide}>Cancel</Button>
-          <Button className="btn-success" onClick={createSensor}>Update</Button>
+          <Button className="btn-success" onClick={createSensorModalSubmissionHandler}>Update</Button>
         </Modal.Footer>
       </Modal>
     );
