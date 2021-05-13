@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { myContext } from '../../Context';
 import { IUser } from '../../types/maintypes';
 import styles from './Dashboard.module.css';
@@ -15,35 +15,9 @@ import { Modal, ModalProps } from 'react-bootstrap';
 import { Omit, BsPrefixProps } from 'react-bootstrap/esm/helpers';
 
 export default function Dashboard() {
-  const context = useContext(myContext) as IUser;
-  const [enteredSensorName, setEnteredSensorName] = useState('');
+  const context = useContext(myContext) as IUser;  
 
-  const sensorNameInputHandler = (event: any) => {
-    setEnteredSensorName(event.target.value);
-
-    if (enteredSensorName.trim() == '') {
-
-    }
-  };
-
-  const createSensorModalSubmissionHandler = (event: any) => {
-    console.log('create sensor submitted');
-    event.preventDefault();
-    console.log(enteredSensorName);
-
-    if (enteredSensorName.trim() == '') {
-
-    }
-
-    // fetch(`${setEnvironment}/createSensor`)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
-
+  // dummy data for populating sensors 
   const sensorList = [
     {
       _id: '608f50cc63a04a44e9e29c71',
@@ -99,6 +73,9 @@ export default function Dashboard() {
 
   const [modalShow, setModalShow] = React.useState(false);
 
+  const handleClose = () => setModalShow(false);
+  const handleShow = () => setModalShow(true);
+
   function MyVerticallyCenteredModal(
     props: JSX.IntrinsicAttributes &
       Omit<
@@ -133,28 +110,8 @@ export default function Dashboard() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CreateSensorForm />
-        {/* <form>
-                <div className="form-group">
-                  <label>Sensor Name</label>
-                  <input type="text" className="form-control" id="sensorName1" onChange={sensorNameInputHandler} />
-                </div>
-                <div className="form-group row">
-                  <div className="col-xs-3 mx-auto">
-                    <label>High Alarm</label>
-                    <input type="text" className="form-control" id="highAlarm1" />
-                  </div>
-                  <div className="col-xs-3 mx-auto">
-                    <label>Low Alarm</label>
-                    <input type="text" className="form-control" id="lowAlarm1" />
-                  </div>
-                </div>
-              </form> */}
+          <CreateSensorForm handleClose={handleClose}/>
         </Modal.Body>
-        <Modal.Footer>
-          <Button className="btn-warning" onClick={props.onHide}>Cancel</Button>
-          <Button className="btn-success" onClick={createSensorModalSubmissionHandler}>Update</Button>
-        </Modal.Footer>
       </Modal>
     );
   }
@@ -185,6 +142,7 @@ export default function Dashboard() {
                       onHide={() => setModalShow(false)}
                     />
                   </>
+                  
                 </Row>
                 <Row className={styles.sensors}>
                   {sensorList.map((sensorData) => (
