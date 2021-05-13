@@ -5,7 +5,7 @@ import { AxiosResponse } from "axios";
 export const myContext = createContext({});
 
 //context test for localhost
-const devEnv = 'http://localhost:3000';
+const devEnv = 'http://localhost:4000';
 const prodEnv = 'https://tempguardoauth.herokuapp.com';
 export const setEnvironment = prodEnv;
 
