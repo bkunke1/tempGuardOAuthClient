@@ -98,3 +98,9 @@ export default function SensorThermometer() {
     );
   }
   
+  export function SensorThermometerTemps() {
+    return(
+      <h1>test</h1>
+    )
+  }
+  

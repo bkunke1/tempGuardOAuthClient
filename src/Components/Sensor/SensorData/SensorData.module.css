@@ -1,0 +1,8 @@
+.infoNoWrap {
+    min-width: max-content;
+}
+
+.editBtn {
+    margin-top: .8rem;
+    margin-left: 1rem;
+}
