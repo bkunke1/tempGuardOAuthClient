@@ -98,36 +98,73 @@ export default function CreateSensorForm(props: any) {
     setEnteredSensorHighAlarmIsTouched(false);
     setEnteredSensorLowAlarmIsTouched(false);
 
-    // fetch(`${setEnvironment}/createSensor`)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    const graphqlQuery = {
+      query: `
+      mutation {
+        createSensor(sensorInput: {name: "${enteredSensorName}", highAlarm: "${enteredSensorHighAlarm}", lowAlarm: "${enteredSensorLowAlarm}"}) {
+          _id
+          sensorName
+          sensorLowAlarm
+          sensorHighAlarm
+        }
+      }
+      `,
+    };
 
-    // Example POST method implementation:
-    async function postData(url = '', data = {}) {
-      // Default options are marked with *
-      const response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
+    fetch('http://localhost:4000/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(graphqlQuery),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((resData) => {
+        console.log('resData', resData);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      return response.json(); // parses JSON response into native JavaScript objects
-    }
 
-    postData(`${setEnvironment}/createSensor`, { sensorName: enteredSensorName, sensorHighAlarm: enteredSensorHighAlarm, sensorLowAlarm: enteredSensorLowAlarm}).then((data) => {
-      console.log(data); // JSON data parsed by `data.json()` call
-    });
+    const getSensorsQuery = {
+      query: `
+        {
+          sensors {
+            sensors {
+              _id
+              sensorNumber
+              sensorName
+              sensorCurrentTemp
+              sensorStatus
+              sensorHighAlarm
+              sensorLowAlarm
+            }
+            totalSensors
+          }
+        }
+        `,
+    };
+
+    fetch('http://localhost:4000/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(getSensorsQuery),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((sensorListData) => {
+        props.setSensorListState(sensorListData.data.sensors.sensors);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // props.setSensorListState([...props.sensorListState]);
 
     props.handleClose();
   };

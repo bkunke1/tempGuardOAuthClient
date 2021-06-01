@@ -15,7 +15,18 @@ import { Modal, ModalProps } from 'react-bootstrap';
 import { Omit, BsPrefixProps } from 'react-bootstrap/esm/helpers';
 
 export default function Dashboard() {
-  const context = useContext(myContext) as IUser;  
+  const context = useContext(myContext) as IUser;
+  const [loadingState, setLoadingState] = useState(true);
+  const [sensorListState, setSensorListState] = useState([{
+    _id: '608f50cc63a04a44e9e29c71',
+    sensorNumber: '1',
+    sensorName: 'Cooler1',
+    sensorCurrentTemp: '32',
+    sensorStatus: 'Normal',
+    sensorHighAlarm: '40',
+    sensorLowAlarm: '20',
+  }]);
+  
 
   // dummy data for populating sensors 
   const sensorList = [
@@ -56,20 +67,74 @@ export default function Dashboard() {
       sensorLowAlarm: '20',
     },
   ];
+  
   // DB call to fill sensorList with real data below:
 
-  //   async function getData(url = '') {
-  //     const response = await fetch(url, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     return response.json();
-  //   }
+  
 
-  //   getData('https://musing-golick-d5c510.netlify.app/').then((data) => {
-  //     console.log(data);
-  //   });
+  const getSensorsQuery = {
+    query: `
+    {
+      sensors {
+        sensors {
+          _id
+          sensorNumber
+          sensorName
+          sensorCurrentTemp
+          sensorStatus
+          sensorHighAlarm
+          sensorLowAlarm
+        }
+        totalSensors
+      }
+    }
+    `,
+  };
+
+  // async function fetchSensorList() {
+  //   sensorList2 = await fetch('http://localhost:4000/graphql', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(getSensorsQuery),
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((sensorListData) => {
+  //       sensorList2 = await sensorListData;
+  //       console.log('list', sensorList2.data.sensors);
+  //       setLoadingState(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
+
+  useEffect(() => {
+    fetch('http://localhost:4000/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(getSensorsQuery),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((sensorListData) => {
+        setSensorListState(sensorListData.data.sensors.sensors)
+        // console.log(sensorListState);
+        setLoadingState(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
+
+  
+  
 
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -110,11 +175,14 @@ export default function Dashboard() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CreateSensorForm handleClose={handleClose}/>
+          <CreateSensorForm handleClose={handleClose} setSensorListState={setSensorListState} sensorListState={sensorListState}/>
         </Modal.Body>
       </Modal>
     );
   }
+
+   // loading message prior to loading api data
+   if (loadingState) return <p>Loading...</p>;
 
   return (
     <div className={styles.sensorsWrapper}>
@@ -145,7 +213,7 @@ export default function Dashboard() {
                   
                 </Row>
                 <Row className={styles.sensors}>
-                  {sensorList.map((sensorData) => (
+                  {sensorListState.map((sensorData) => (
                     <Col xs={6} md={4} lg={3} className={styles.sensor}>
                       {' '}
                       <Sensor
