@@ -13,6 +13,7 @@ import Col from 'react-bootstrap/esm/Col';
 import Button from 'react-bootstrap/Button';
 import { Modal, ModalProps } from 'react-bootstrap';
 import { Omit, BsPrefixProps } from 'react-bootstrap/esm/helpers';
+import EditSensorForm from '../../Components/Forms/EditSensorForm/EditSensorForm';
 
 export default function Dashboard() {
   const context = useContext(myContext) as IUser;
@@ -180,6 +181,9 @@ export default function Dashboard() {
       </Modal>
     );
   }
+
+
+  
 
    // loading message prior to loading api data
    if (loadingState) return <p>Loading...</p>;
