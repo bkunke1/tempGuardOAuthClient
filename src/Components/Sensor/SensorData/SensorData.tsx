@@ -13,6 +13,10 @@ import EditSensorForm from '../../../Components/Forms/EditSensorForm/EditSensorF
 
 export default function SensorData(props: any) {
 
+  const [sensorData, setSensorData] = React.useState(props.props);
+
+  console.log('props.props', sensorData)
+
 
 // Modal below is for the Edit Sensor Button
 
@@ -55,7 +59,7 @@ function MyVerticallyCenteredEditModal(
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>          
-        <EditSensorForm handleClose={handleEditModalClose} sensorName={props.sensorName} sensor={props.sensor} />
+        <EditSensorForm handleClose={handleEditModalClose} sensorName={props.sensorName} sensor={props.sensor} setSensorData={setSensorData}/>
       </Modal.Body>
     </Modal>
   );
@@ -64,17 +68,17 @@ function MyVerticallyCenteredEditModal(
 
   return (
     <div className={styles.infoNoWrap}>
-        <h6>Sensor {props.props.sensorNumber}</h6>
-        <h4 className={styles.sensorNameText}>{props.props.sensorName}</h4>
-        <h6>Current Temp: {props.props.sensorCurrentTemp}</h6>
-        <h6>Status: {props.props.sensorStatus}</h6>
-        <h6>High Alarm: {props.props.sensorHighAlarm}</h6>
-        <h6>Low Alarm: {props.props.sensorLowAlarm}</h6>
+        <h6>Sensor {sensorData.sensorNumber}</h6>
+        <h4 className={styles.sensorNameText}>{sensorData.sensorName}</h4>
+        <h6>Current Temp: {sensorData.sensorCurrentTemp}</h6>
+        <h6>Status: {sensorData.sensorStatus}</h6>
+        <h6>High Alarm: {sensorData.sensorHighAlarm}</h6>
+        <h6>Low Alarm: {sensorData.sensorLowAlarm}</h6>
         <Button className={styles.editBtn} onClick={() => setEditModalShow(true)}>Edit</Button>
         <MyVerticallyCenteredEditModal
                       show={editModalShow}
                       onHide={() => setEditModalShow(false)}
-                      sensor={props.props}
+                      sensor={sensorData}
                     />
       </div>
   );

@@ -140,60 +140,54 @@ export default function EditSensorForm(props: any) {
       `,
     };
 
-    fetch('http://localhost:4000/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(graphqlQuery),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((resData) => {
-        console.log('resData', resData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    props.setSensorData(
+      {
+        _id: `${props.sensor._id}`,
+        sensorName: `${enteredSensorName}`,
+        sensorStatus: 'Normal',
+        sensorCurrentTemp: `${enteredSensorCalibration}`,
+        sensorHighAlarm: `${enteredSensorHighAlarm}`,
+        sensorLowAlarm: `${enteredSensorLowAlarm}`,
+      }
+    );
 
-    const getSensorsQuery = {
-      query: `
-        {
-          sensors {
-            sensors {
-              _id
-              sensorNumber
-              sensorName
-              sensorCurrentTemp
-              sensorStatus
-              sensorHighAlarm
-              sensorLowAlarm
-            }
-            totalSensors
-          }
-        }
-        `,
-    };
+    // props.setSensorData(props.sensor);
 
-    fetch('http://localhost:4000/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(getSensorsQuery),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((sensorListData) => {
-        props.setSensorListState(sensorListData.data.sensors.sensors);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // fetch('http://localhost:4000/graphql', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(graphqlQuery),
+    // })
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((resData) => {
+    //     console.log('resData', resData);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
-    // props.setSensorListState([...props.sensorListState]);
+    // const getSensorsQuery = {
+    //   query: `
+    //     {
+    //       sensors {
+    //         sensors {
+    //           _id
+    //           sensorNumber
+    //           sensorName
+    //           sensorCurrentTemp
+    //           sensorStatus
+    //           sensorHighAlarm
+    //           sensorLowAlarm
+    //         }
+    //         totalSensors
+    //       }
+    //     }
+    //     `,
+    // };
 
     props.handleClose();
   };

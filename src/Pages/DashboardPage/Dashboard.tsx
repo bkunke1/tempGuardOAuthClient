@@ -28,50 +28,7 @@ export default function Dashboard() {
     sensorLowAlarm: '20',
   }]);
   
-
-  // dummy data for populating sensors 
-  const sensorList = [
-    {
-      _id: '608f50cc63a04a44e9e29c71',
-      sensorNumber: '1',
-      sensorName: 'Cooler1',
-      sensorCurrentTemp: '32',
-      sensorStatus: 'Normal',
-      sensorHighAlarm: '40',
-      sensorLowAlarm: '20',
-    },
-    {
-      _id: '60921243d737c74e5ce4d99f',
-      sensorNumber: '2',
-      sensorName: 'Cooler1',
-      sensorCurrentTemp: '32',
-      sensorStatus: 'Normal',
-      sensorHighAlarm: '40',
-      sensorLowAlarm: '20',
-    },
-    {
-      _id: '60921252d737c74e5ce4d9a0',
-      sensorNumber: '3',
-      sensorName: 'Cooler1',
-      sensorCurrentTemp: '32',
-      sensorStatus: 'Normal',
-      sensorHighAlarm: '40',
-      sensorLowAlarm: '20',
-    },
-    {
-      _id: '60921256d737c74e5ce4d9a1',
-      sensorNumber: '4',
-      sensorName: 'Cooler1',
-      sensorCurrentTemp: '32',
-      sensorStatus: 'Normal',
-      sensorHighAlarm: '40',
-      sensorLowAlarm: '20',
-    },
-  ];
-  
   // DB call to fill sensorList with real data below:
-
-  
 
   const getSensorsQuery = {
     query: `
@@ -181,9 +138,6 @@ export default function Dashboard() {
       </Modal>
     );
   }
-
-
-  
 
    // loading message prior to loading api data
    if (loadingState) return <p>Loading...</p>;
